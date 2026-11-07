@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GST Invoice Extractor</title>
+<meta name="description" content="Reads Indian GST invoices from PDF or photo, puts the key fields in a spreadsheet, and flags the ones that look wrong.">
+<style>
+:root{--bg:#FAFAF7;--surface:#FFFFFF;--ink:#1B1F23;--muted:#4A5560;--line:#E4E4DE;--accent:#1F6F5C;--accent-ink:#FFFFFF;--dark-bg:#1B1F23;--dark-ink:#FAFAF7;--dark-muted:#D6D9DC}
+@media (prefers-color-scheme:dark){:root{--bg:#14171A;--surface:#1B1F23;--ink:#F2F3F1;--muted:#B5BCC3;--line:#2E343A;--accent:#5CC4A8;--accent-ink:#0F1A16;--dark-bg:#0E1113;--dark-ink:#F2F3F1;--dark-muted:#B5BCC3}}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+a{color:var(--accent)}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+header .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;padding-top:24px}
+.hero{padding:72px 0 56px}
+h1{margin:0 0 20px;font-size:clamp(34px,5vw,56px);line-height:1.1;max-width:780px}
+.lead{margin:0 0 32px;font-size:20px;color:var(--muted);max-width:640px}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-block;padding:14px 24px;border-radius:8px;text-decoration:none;font-weight:600;border:2px solid var(--accent)}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.btn.ghost{color:var(--accent)}
+section.band{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+section .wrap{padding-top:56px;padding-bottom:56px}
+h2{margin:0 0 8px;font-size:30px}
+.sub{margin:0 0 32px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.card{border:1px solid var(--line);border-radius:10px;padding:20px}
+.card h3{margin:0 0 8px;font-size:18px}
+.card p{margin:0;color:var(--muted)}
+.step b{display:block;color:var(--accent);font-size:15px}
+.step p{margin:6px 0 0;color:var(--muted)}
+.pilot{background:var(--dark-bg);color:var(--dark-ink)}
+.pilot p{max-width:680px;color:var(--dark-muted);margin:0 0 12px}
+.pilot .btn{background:var(--dark-ink);color:var(--dark-bg);border-color:var(--dark-ink);margin-top:12px}
+footer{padding:28px 0 40px;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<header><div class="wrap"><strong>GST Invoice Extractor</strong><a href="https://github.com/atharv-mane0844/gst-invoice-extractor">Source on GitHub</a></div></header>
+
+<main>
+<section class="hero"><div class="wrap">
+<h1>Catch GST invoice errors before they reach the books.</h1>
+<p class="lead">Reads Indian GST invoices from PDF or phone photo, puts the key fields in a spreadsheet, and flags the invoices that look wrong instead of guessing.</p>
+<div class="btns">
+<a class="btn primary" href="https://github.com/atharv-mane0844/gst-invoice-extractor">View on GitHub</a>
+<a class="btn ghost" href="mailto:atharvmane0844@gmail.com?subject=Free%20pilot%20request">Ask for a free pilot</a>
+</div>
+</div></section>
+
+<section class="band"><div class="wrap">
+<h2>What it checks on every invoice</h2>
+<p class="sub">Each invoice is marked OK, CHECK or REVIEW, and the Excel file colours the rows to match.</p>
+<div class="grid">
+<div class="card"><h3>GSTIN validity</h3><p>Format, state code and checksum, which catches typing and OCR mistakes.</p></div>
+<div class="card"><h3>Totals add up</h3><p>Taxable value plus tax must match the invoice total, within rupee rounding.</p></div>
+<div class="card"><h3>CGST equals SGST</h3><p>The two halves are always equal, so any difference is flagged.</p></div>
+<div class="card"><h3>Right tax type</h3><p>IGST versus CGST and SGST is checked against the states of supplier and buyer.</p></div>
+<div class="card"><h3>Standard rate</h3><p>The implied rate is compared with the 0, 3, 5, 12, 18 and 28 percent slabs.</p></div>
+</div>
+</div></section>
+
+<section><div class="wrap">
+<h2>How it works</h2>
+<p class="sub"></p>
+<div class="grid">
+<div class="step"><b>1. Upload</b><p>PDF invoices or scans and photos. Scans are read with OCR.</p></div>
+<div class="step"><b>2. Extract</b><p>Supplier, GSTINs, invoice number, date, taxable value, taxes and total.</p></div>
+<div class="step"><b>3. Review</b><p>Open the spreadsheet and look only at the rows marked CHECK or REVIEW.</p></div>
+</div>
+</div></section>
+
+<section class="pilot"><div class="wrap">
+<h2>Free pilot for CA firms</h2>
+<p>This is an early version. I would like to run it on 5 to 10 of your real invoices, free, and show you the output. Redacted copies are fine, and I delete the files once we have reviewed the results.</p>
+<p>Known limits today: line items and HSN codes are not extracted, unusual layouts may need a manual check, and the output is a generic spreadsheet, not a Tally import file. It is a data-entry aid, not tax advice.</p>
+<a class="btn" href="mailto:atharvmane0844@gmail.com?subject=Free%20pilot%20request">Email Atharv Mane: atharvmane0844@gmail.com</a>
+</div></section>
+</main>
+
+<footer><div class="wrap">Built by Atharv Mane, Kolhapur. Open source under the MIT license.</div></footer>
+</body>
+</html>
